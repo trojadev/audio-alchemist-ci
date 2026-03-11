@@ -1,0 +1,10 @@
+name: Audio Pipeline
+
+on: [push]
+
+jobs:
+  relaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wiadomość na dziś
+        run: echo "Dzień 5 zaliczony! Maszyna pracuje, a ja idę odpoczywać."
