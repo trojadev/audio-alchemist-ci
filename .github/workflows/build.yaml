@@ -1,6 +1,10 @@
 name: Audio Pipeline
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'Dockerfile'
+      - 'audio-processor.py'
 
 jobs:
   build-image:
