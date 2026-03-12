@@ -3,8 +3,11 @@ name: Audio Pipeline
 on: [push]
 
 jobs:
-  relaks:
+  build-image:
     runs-on: ubuntu-latest
     steps:
-      - name: Wiadomość na dziś
-        run: echo "Dzień 5 zaliczony! Maszyna pracuje, a ja idę odpoczywać."
+      - name: Downloading code from repo
+        uses: actions/checkout@v6
+      
+      - name: Building Docker image
+        run: docker build -t audio-processor .
