@@ -11,14 +11,50 @@ jobs:
   build-image:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Set up Docker
+        uses: docker/setup-docker-action@v5
+        with:
+          daemon-config: |
+            {
+              "debug": true,
+              "features": {
+                "containerd-snapshotter": true
+              }
+            }
+            
       - name: Download code from repo
         uses: actions/checkout@v6
       
-      - name: Build Docker image
-        run: docker build -t audio-processor .
+      - name: Login to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
       
+      - name: Extract Metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=sha,format=short,prefix=,
+            type=raw, value=latest
+            
+            
 
-      - run: docker run --rm -v $(pwd)/tests:/data audio-processor /data/essa.wav   
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
+
+
+      - run: docker run --rm -v $(pwd)/tests:/data ghcr.io/${{ github.repository }}:latest /data/essa.wav   
 
 
       - name: Save processed files

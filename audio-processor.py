@@ -15,8 +15,6 @@ def normalize_audio_file(filepath):
     filepath_new = processed_files_directory + f"{os.path.basename(filepath_splitted[0])}_normalized{filepath_splitted[1]}"
 
     
-  
-###
     
     try:
         
@@ -64,7 +62,7 @@ def main():
     
     try:
 
-
+         ##   
         #Normalize audio, retrieve file info and save it in JSON format
         audio_data = normalize_audio_file(filepath)
         audio_data_json = json.dumps(audio_data, indent=4)
