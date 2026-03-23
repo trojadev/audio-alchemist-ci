@@ -2,6 +2,7 @@ import os
 import subprocess
 import json
 import sys
+import requests
 
 def normalize_audio_file(filepath):
     
@@ -9,6 +10,8 @@ def normalize_audio_file(filepath):
     filename = os.path.basename(filepath)
     filepath_splitted = os.path.splitext(filepath)
 
+    print(filepath)
+    print(filepath_splitted)
     processed_files_directory = f"{parent_directory}/processed_files/"
    
     #Create a save path for a processed file
@@ -46,7 +49,7 @@ def normalize_audio_file(filepath):
 
 
 def main():
-
+    print("Szczuzrek jest super")
     #Check if any argument was provided
     if len(sys.argv) == 2:
         filepath = sys.argv[1]

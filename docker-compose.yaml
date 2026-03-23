@@ -1,0 +1,13 @@
+services:
+  audio-alchemist-ci:
+    build: .
+    image: audio_alchemist:dev
+
+
+    volumes:
+      - .:/app
+      
+      - ./tests:/data
+
+    command: ["/data/essa.wav"]
+
