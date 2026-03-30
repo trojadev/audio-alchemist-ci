@@ -22,10 +22,21 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Pull production image test
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 10
+      # You can specify the shell commands you want to retry here
+          command: |
+            docker pull ghcr.io/${{ github.repository }}:late2st	
 
-      - name: Pull production image
-        run: |
-          docker pull ghcr.io/${{ github.repository }}:latest
+        #- name: Pull production image
+        #run: |
+        #docker pull ghcr.io/${{ github.repository }}:latest
+
 
       - name: Scan production image
         uses: aquasecurity/trivy-action@v0.35.0
