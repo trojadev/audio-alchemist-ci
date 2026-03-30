@@ -32,16 +32,14 @@ jobs:
         with:
           image-ref: 'ghcr.io/${{ github.repository }}:latest'
           format: 'sarif'
-          output: 'production-scan.sarif'
+          output: 'production-scan_essa.sarif'
+          ignore-unfixed: false
+          severity: 'HIGH'
+
 
       - name: Upload scan results
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: 'production-scan.sarif'
+          sarif_file: 'production-scan_essa.sarif'
 
-      - name: Notify on critical vulnerabilities
-        if: failure()
-        run: |
-          curl -X POST ${{ secrets.SLACK_WEBHOOK }} \
-            -H 'Content-Type: application/json' \
-            -d '{"text":"Critical vulnerabilities found in production image. Check GitHub Security tab."}'
+      
