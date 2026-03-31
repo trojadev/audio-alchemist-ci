@@ -68,14 +68,20 @@ jobs:
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
-          severity: 'HIGH'
+          severity: 'CRITICAL,HIGH'
 
 
       - run: docker run --rm -u $(id -u):$(id -g) -v $(pwd)/data:/data ghcr.io/${{ github.repository }}:${{steps.meta.outputs.version}}
 
 
+      - name: Declare commit SHA Short ENV Variable
+        shell: bash
+        run: |
+          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
       - name: Save processed files
         uses: actions/upload-artifact@v6
         with:
-          name: audio_edited_python_${{ steps.meta.outputs.version }}
+          name: processed_audio_${{ steps.meta.outputs.version }}_${{env.sha_short}}
+
           path: data/processed_files/
