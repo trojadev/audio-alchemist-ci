@@ -77,5 +77,6 @@ jobs:
       - name: Save processed files
         uses: actions/upload-artifact@v6
         with:
-          name: processed_audio_${{ steps.meta.outputs.version }}
+          name: processed_audio_${{ steps.meta.outputs.version }}_$(git rev-parse --short "$GITHUB_SHA")
+
           path: data/processed_files/
