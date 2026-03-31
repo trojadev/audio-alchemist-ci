@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-workflow:
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/build-image.yaml
     with:
       push_to_ghcr: true
       image_tag: ${{ github.ref_name }}
