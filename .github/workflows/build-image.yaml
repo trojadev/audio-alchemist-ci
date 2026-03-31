@@ -24,7 +24,7 @@ jobs:
 
       - name: var test
         run: |
-          echo "ELO=${{i nputs.push_to_ghcr }}"
+          echo "ELO=${{inputs.push_to_ghcr }}"
       - name: Set up Docker
         uses: docker/setup-docker-action@v5
         with:
