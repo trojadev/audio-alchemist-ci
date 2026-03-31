@@ -61,8 +61,8 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          push: ${{ inputs.push_to_ghcr }}
-          load: ${{ !inputs.push_to_ghcr }}
+          push: false #${{ inputs.push_to_ghcr }}
+          load: false #${{ !inputs.push_to_ghcr }}
           build-args: |
             PYTHON_VER=${{matrix.python-version}}
           tags: ${{ steps.meta.outputs.tags }}
