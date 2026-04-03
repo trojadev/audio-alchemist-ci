@@ -18,5 +18,6 @@ jobs:
         role-to-assume: arn:aws:iam::303341354192:role/GithubAudioAlchemist_Workflow
         aws-region: eu-central-1
 
-
+    - name: test running code
+      run: aws lightsail get-static-ips
 #
