@@ -1,0 +1,15 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: 
+    - 'v[0-9]+.[0-9]+.[0-9]+' 
+  
+
+jobs:
+  build-workflow:
+    uses: ./.github/workflows/build-image.yaml
+    with:
+      push_to_ghcr: true
+      image_tag: ${{ github.ref_name }}
